@@ -1,30 +1,25 @@
 import pickle
 import os
 
-# File to store the data
 DATA_FILE = "services.pkl"
 CREDENTIALS_FILE = "credentials.pkl"
 
-# Load existing data
 if os.path.exists(DATA_FILE):
     with open(DATA_FILE, "rb") as file:
         services = pickle.load(file)
 else:
-    services = []  # Initialize empty services list if no file exists
+    services = []
 
-# Load or initialize admin credentials
 if os.path.exists(CREDENTIALS_FILE):
     with open(CREDENTIALS_FILE, "rb") as file:
         admin_credentials = pickle.load(file)
 else:
-    admin_credentials = {"admin": "admin123"}  # Default admin credentials
+    admin_credentials = {"admin": "admin123"}
 
-# Save credentials to file
 def save_credentials():
     with open(CREDENTIALS_FILE, "wb") as file:
         pickle.dump(admin_credentials, file)
 
-# Main program logic
 def main_menu():
     while True:
         print("\n--- Main Menu ---")
@@ -41,7 +36,6 @@ def main_menu():
         elif choice == "3":
             user_menu()
         elif choice == "4":
-            # Save services to file when exiting
             with open(DATA_FILE, "wb") as file:
                 pickle.dump(services, file)
             print("Exiting the program. Goodbye!")
@@ -85,7 +79,6 @@ def admin_menu():
         choice = input("Enter your choice: ")
 
         if choice == "1":
-            # Add a service
             print("\n--- Add Service ---")
             work = input("Enter type of work (e.g., plumber): ").strip()
             location = input("Enter location: ").strip()
@@ -93,7 +86,6 @@ def admin_menu():
             services.append({"work": work, "location": location, "contact": contact})
             print("Service added successfully!")
         elif choice == "2":
-            # View all services
             print("\n--- View All Services ---")
             if services:
                 for idx, service in enumerate(services, start=1):
@@ -114,7 +106,6 @@ def user_menu():
         choice = input("Enter your choice: ")
 
         if choice == "1":
-            # Search for a service
             print("\n--- Search Service ---")
             work = input("Enter type of work you need: ").strip().lower()
             location = input("Enter location: ").strip().lower()
@@ -130,6 +121,5 @@ def user_menu():
         else:
             print("Invalid choice! Please try again.")
 
-# Run the program
 if __name__ == "__main__":
     main_menu()
